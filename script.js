@@ -288,12 +288,12 @@ window.addEventListener('scroll', highlightActiveSection);
                     console.info('Achievements: using manifest at', manifestUrl);
                     return list.map(entry => {
                         if (typeof entry === 'string') {
-                            return { src: ASSET_PATH + entry, filename: entry };
+                            return { src: ASSET_PATH + encodeURIComponent(entry), filename: entry };
                         }
                         if (entry && typeof entry === 'object') {
                             // support either {file:..., title:..., description:...} or {src:..., filename:..., title:...}
                             const file = entry.file || entry.filename || entry.src && entry.src.split('/').pop();
-                            const src = entry.src ? entry.src : (file ? ASSET_PATH + file : null);
+                            const src = entry.src ? entry.src : (file ? ASSET_PATH + encodeURIComponent(file) : null);
                             if (!src) return null;
                             return {
                                 src,
@@ -318,16 +318,16 @@ window.addEventListener('scroll', highlightActiveSection);
         // listings are disabled on the server). Update this list if you add
         // images manually to assets/achievements/.
         const FALLBACK_FILES = [
-            'BravoAward.jpeg',
-            'BravoIndividual.jpeg',
-            'HighFiveAward.jpeg',
-            'MSCloud.png',
-            'Rasadev.png',
-            'TopTalent2024.jpeg',
-            'TopTalent2025.jpeg'
+            'Bravo Individual Award.jpeg',
+            'Bravo Team Award.jpeg',
+            'High Five Award 2025.jpeg',
+            'Microsoft AZ-900.png',
+            'Rasa ChatBot Developer.png',
+            'Top Talent 2024.jpeg',
+            'Top Talent 2025.jpeg'
         ];
 
-        return FALLBACK_FILES.map(name => ({ src: ASSET_PATH + name, filename: name }));
+        return FALLBACK_FILES.map(name => ({ src: ASSET_PATH + encodeURIComponent(name), filename: name }));
     }
 
     // Render discovered images
